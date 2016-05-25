@@ -1,0 +1,34 @@
+{
+  "name": "tree-utils",
+  "version": "1.0.0",
+  "description": "a collection of tree utilities written in typescript",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "tape",
+    "setup": "npm install && typings install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YashdalfTheGray/tree-utils.git"
+  },
+  "keywords": [
+    "tree",
+    "trees",
+    "binary trees",
+    "bst",
+    "binary search trees"
+  ],
+  "author": "YashdalfTheGray",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/YashdalfTheGray/tree-utils/issues"
+  },
+  "homepage": "https://github.com/YashdalfTheGray/tree-utils#readme",
+  "devDependencies": {
+    "chalk": "^1.1.3",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^2.13.4",
+    "gulp-util": "^3.0.7",
+    "tape": "^4.5.1"
+  }
+}
