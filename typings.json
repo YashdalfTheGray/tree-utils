@@ -1,0 +1,6 @@
+{
+  "name": "tree-utils",
+  "dependencies": {
+    "tape": "registry:npm/tape#4.0.0+20160322235547"
+  }
+}
