@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var gTs = require('gulp-typescript');
 var os = require('os');
+var chalk = require('chalk');
 
 gulp.task('default', ['usage']);
 
