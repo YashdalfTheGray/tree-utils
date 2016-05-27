@@ -47,7 +47,7 @@ gulp.task('usage', () => {
 });
 
 gulp.task('build', ['clean:build'], () => {
-    return buildTypescript(['src/**/*.ts', '!src/**/*.spec.ts'], 'dist/', tsconfig);
+    return buildTypescript(['src/**/*.ts', '!src/**/*.spec.ts', 'typings/index.d.ts'], 'dist/', tsconfig);
 });
 
 gulp.task('test', ['_pre:test'], () => {
@@ -70,7 +70,7 @@ gulp.task('clean:modules', () => {
 });
 
 gulp.task('_pre:test', ['clean:test'], () => {
-    return buildTypescript('src/**/*.ts', 'tmp/', tsconfig, true);
+    return buildTypescript(['src/**/*.ts', 'typings/index.d.ts'], 'tmp/', tsconfig, true);
 });
 
 gulp.task('clean:all', ['clean:build', 'clean:test', 'clean:modules']);
