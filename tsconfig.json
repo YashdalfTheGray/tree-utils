@@ -7,13 +7,13 @@
         "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "declaration": false,
+        "declaration": true,
         "noImplicitAny": false,
         "noImplicitUseStrict": false,
         "removeComments": true,
         "noLib": false,
         "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true 
+        "suppressImplicitAnyIndexErrors": true
     },
     "exclude": [
         "node_modules",
