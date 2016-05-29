@@ -4,7 +4,8 @@
   "description": "a collection of tree utilities written in typescript",
   "main": "dist/index.js",
   "scripts": {
-    "test": "tape",
+    "test": "gulp test",
+    "start": "gulp build",
     "setup": "npm install && typings install"
   },
   "repository": {
