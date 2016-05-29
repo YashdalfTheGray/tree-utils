@@ -95,4 +95,72 @@ test('Tree', (t: test.Test) => {
             t.end();
         });
     });
+
+    t.test('size', (t: test.Test) => {
+        t.test('returns 1 for a tree with one node', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+
+            t.equal(treeInstance.size(), 1);
+            t.end();
+        });
+
+        t.test('returns 3 for a tree with one node and two children', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+
+            treeInstance.addChild(new Tree<number>(1));
+            treeInstance.addChild(new Tree<number>(2));
+
+            t.equal(treeInstance.size(), 3);
+            t.end();
+        });
+
+        t.test('handles trees with asymmetric children', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+            const firstChild = new Tree<number>(1);
+
+            firstChild.addChild(new Tree<number>(3));
+            firstChild.addChild(new Tree<number>(4));
+            treeInstance.addChild(firstChild);
+            treeInstance.addChild(new Tree<number>(2));
+
+            t.equal(treeInstance.size(), 5);
+            t.end();
+        });
+    });
+
+    t.test('height', (t: test.Test) => {
+        t.test('handles a tree with a single node correctly', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+
+            t.equal(treeInstance.height(), 1);
+            t.end();
+        });
+
+        t.test('handles a tree with multiple children', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+            treeInstance.addChild(new Tree<number>(1));
+            treeInstance.addChild(new Tree<number>(2));
+
+            t.equal(treeInstance.height(), 2);
+            t.end();
+        });
+
+        t.test('handles trees with asymmetric children', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+            const firstChild = new Tree<number>(1);
+            const secondChild = new Tree<number>(2);
+            const fifthChild = new Tree<number>(5);
+
+            fifthChild.addChild(new Tree<number>(7));
+            firstChild.addChild(new Tree<number>(3));
+            firstChild.addChild(new Tree<number>(4));
+            secondChild.addChild(fifthChild);
+            secondChild.addChild(new Tree<number>(6));
+            treeInstance.addChild(firstChild);
+            treeInstance.addChild(secondChild);
+
+            t.equal(treeInstance.height(), 4);
+            t.end();
+        });
+    });
 });
