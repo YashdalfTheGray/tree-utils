@@ -3,9 +3,6 @@ import {remove, max} from "lodash";
 export interface ITree<T> {
     getNodeData(): T;
     setNodeData(data: T): void;
-    addChild(node: ITree<T>): void;
-    getChildAt(index: number): ITree<T>;
-    removeChild(index: number): ITree<T>;
     size(): number;
     height(): number;
 }
