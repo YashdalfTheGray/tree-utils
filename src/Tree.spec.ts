@@ -163,4 +163,41 @@ test('Tree', (t: test.Test) => {
             t.end();
         });
     });
+
+    t.test('numChildren', (t: test.Test) => {
+        t.test('handles a tree with a single node correctly', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+
+            t.equal(treeInstance.numChildren(), 0);
+            t.end();
+        });
+
+        t.test('handles a tree with multiple children', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+            treeInstance.addChild(new Tree<number>(1));
+            treeInstance.addChild(new Tree<number>(2));
+
+            t.equal(treeInstance.numChildren(), 2);
+            t.end();
+        });
+
+        t.test('handles trees with asymmetric children', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+            const firstChild = new Tree<number>(1);
+            const secondChild = new Tree<number>(2);
+            const fifthChild = new Tree<number>(6);
+
+            fifthChild.addChild(new Tree<number>(8));
+            firstChild.addChild(new Tree<number>(4));
+            firstChild.addChild(new Tree<number>(5));
+            secondChild.addChild(fifthChild);
+            secondChild.addChild(new Tree<number>(7));
+            treeInstance.addChild(firstChild);
+            treeInstance.addChild(secondChild);
+            treeInstance.addChild(new Tree<number>(3));
+
+            t.equal(treeInstance.numChildren(), 3);
+            t.end();
+        });
+    });
 });
