@@ -3,8 +3,12 @@ import {remove, max} from "lodash";
 export interface ITree<T> {
     getNodeData(): T;
     setNodeData(data: T): void;
+    addChild(node: ITree<T>, index?: number): void;
+    getChildAt(index: number): ITree<T>;
+    removeChild(index: number): ITree<T>;
     size(): number;
     height(): number;
+    numChildren(): number;
 }
 
 export class Tree<T> implements ITree<T> {
@@ -54,5 +58,9 @@ export class Tree<T> implements ITree<T> {
         else {
             return 1;
         }
+    }
+
+    public numChildren(): number {
+        return this._children.length;
     }
 }
