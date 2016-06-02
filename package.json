@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/YashdalfTheGray/tree-utils#readme",
   "files": [
-      "dist/*",
-      "README.md"
+    "dist/*",
+    "README.md"
   ],
   "typings": "dist/index.d.ts",
   "devDependencies": {
@@ -38,7 +38,7 @@
     "gulp-typescript": "^2.13.4",
     "gulp-util": "^3.0.7",
     "merge2": "^1.0.2",
-    "tap-colorize": "^1.2.0",
+    "tap-min": "^1.1.0",
     "tape": "^4.5.1"
   },
   "dependencies": {
