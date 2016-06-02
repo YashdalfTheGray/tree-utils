@@ -4,7 +4,7 @@ const ts = require('gulp-typescript');
 const os = require('os');
 const chalk = require('chalk');
 const tape = require('gulp-tape');
-const tapColorize = require('tap-colorize');
+const tapMin = require('tap-min');
 const merge = require('merge2');
 const del = require('del');
 const tsconfig = require('./tsconfig.json');
@@ -52,7 +52,7 @@ gulp.task('build', ['clean:build'], () => {
 
 gulp.task('test', ['_pre:test'], () => {
     return gulp.src('tmp/**/*.spec.js')
-    .pipe(tape({ reporter: tapColorize() }));
+    .pipe(tape({ reporter: tapMin() }));
 });
 
 gulp.task('clean', ['clean:build']);
