@@ -43,16 +43,16 @@ test('Binary Tree', (t: test.Test) => {
         const treeInstance = new BinaryTree<Object>();
 
         t.test('adds a left child', (t: test.Test) => {
-            treeInstance.addChild(CHILD_LOCATION.LEFT, new BinaryTree<Object>({ test: 'foo' }));
+            treeInstance.addChild(new BinaryTree<Object>({ test: 'foo' }));
 
-            t.deepEquals(treeInstance.getChild(CHILD_LOCATION.LEFT).getNodeData(), { test: 'foo' });
+            t.deepEquals(treeInstance.getChildAt(CHILD_LOCATION.LEFT).getNodeData(), { test: 'foo' });
             t.end();
         });
 
         t.test('adds a right child', (t: test.Test) => {
-            treeInstance.addChild(CHILD_LOCATION.RIGHT, new BinaryTree<Object>({ test: 'foo' }));
+            treeInstance.addChild(new BinaryTree<Object>({ test: 'foo' }), CHILD_LOCATION.RIGHT);
 
-            t.deepEquals(treeInstance.getChild(CHILD_LOCATION.RIGHT).getNodeData(), { test: 'foo' });
+            t.deepEquals(treeInstance.getChildAt(CHILD_LOCATION.RIGHT).getNodeData(), { test: 'foo' });
             t.end();
         });
     });
@@ -61,14 +61,14 @@ test('Binary Tree', (t: test.Test) => {
         const treeInstance = new BinaryTree<string>('root');
 
         t.test('gets a child at a valid location', (t: test.Test) => {
-            treeInstance.addChild(CHILD_LOCATION.LEFT, new BinaryTree<string>('l1c1'));
+            treeInstance.addChild(new BinaryTree<string>('l1c1'));
 
-            t.equals(treeInstance.getChild(CHILD_LOCATION.LEFT).getNodeData(), 'l1c1');
+            t.equals(treeInstance.getChildAt(CHILD_LOCATION.LEFT).getNodeData(), 'l1c1');
             t.end();
         });
 
         t.test('gracefully handles invalid child locations', (t: test.Test) => {
-            t.equals(treeInstance.getChild(CHILD_LOCATION.RIGHT), undefined);
+            t.equals(treeInstance.getChildAt(CHILD_LOCATION.RIGHT), undefined);
             t.end();
         });
     });
@@ -77,8 +77,8 @@ test('Binary Tree', (t: test.Test) => {
         function setup() {
             const t = new BinaryTree<number>(0);
 
-            t.addChild(CHILD_LOCATION.LEFT, new BinaryTree<number>(1));
-            t.addChild(CHILD_LOCATION.RIGHT, new BinaryTree<number>(2));
+            t.addChild(new BinaryTree<number>(1));
+            t.addChild(new BinaryTree<number>(2), CHILD_LOCATION.RIGHT);
 
             return t;
         }
@@ -115,8 +115,8 @@ test('Binary Tree', (t: test.Test) => {
         t.test('returns 3 for a tree with one node and two children', (t: test.Test) => {
             const treeInstance = new BinaryTree<number>(0);
 
-            treeInstance.addChild(CHILD_LOCATION.LEFT, new BinaryTree<number>(1));
-            treeInstance.addChild(CHILD_LOCATION.RIGHT, new BinaryTree<number>(2));
+            treeInstance.addChild(new BinaryTree<number>(1));
+            treeInstance.addChild(new BinaryTree<number>(2), CHILD_LOCATION.RIGHT);
 
             t.equal(treeInstance.size(), 3);
             t.end();
@@ -126,10 +126,10 @@ test('Binary Tree', (t: test.Test) => {
             const treeInstance = new BinaryTree<number>(0);
             const firstChild = new BinaryTree<number>(1);
 
-            firstChild.addChild(CHILD_LOCATION.LEFT, new BinaryTree<number>(3));
-            firstChild.addChild(CHILD_LOCATION.RIGHT, new BinaryTree<number>(4));
-            treeInstance.addChild(CHILD_LOCATION.LEFT, firstChild);
-            treeInstance.addChild(CHILD_LOCATION.RIGHT, new BinaryTree<number>(2));
+            firstChild.addChild(new BinaryTree<number>(3));
+            firstChild.addChild(new BinaryTree<number>(4), CHILD_LOCATION.RIGHT);
+            treeInstance.addChild(firstChild);
+            treeInstance.addChild(new BinaryTree<number>(2), CHILD_LOCATION.RIGHT);
 
             t.equal(treeInstance.size(), 5);
             t.end();
@@ -146,8 +146,8 @@ test('Binary Tree', (t: test.Test) => {
 
         t.test('handles a tree with multiple children', (t: test.Test) => {
             const treeInstance = new BinaryTree<number>(0);
-            treeInstance.addChild(CHILD_LOCATION.LEFT, new BinaryTree<number>(1));
-            treeInstance.addChild(CHILD_LOCATION.RIGHT, new BinaryTree<number>(2));
+            treeInstance.addChild(new BinaryTree<number>(1));
+            treeInstance.addChild(new BinaryTree<number>(2), CHILD_LOCATION.RIGHT);
 
             t.equal(treeInstance.height(), 2);
             t.end();
@@ -159,18 +159,44 @@ test('Binary Tree', (t: test.Test) => {
             const secondChild = new BinaryTree<number>(2);
             const fifthChild = new BinaryTree<number>(5);
 
-            fifthChild.addChild(CHILD_LOCATION.LEFT, new BinaryTree<number>(7));
+            fifthChild.addChild(new BinaryTree<number>(7));
 
-            firstChild.addChild(CHILD_LOCATION.LEFT, new BinaryTree<number>(3));
-            firstChild.addChild(CHILD_LOCATION.RIGHT, new BinaryTree<number>(4));
+            firstChild.addChild(new BinaryTree<number>(3));
+            firstChild.addChild(new BinaryTree<number>(4), CHILD_LOCATION.RIGHT);
 
-            secondChild.addChild(CHILD_LOCATION.LEFT, fifthChild);
-            secondChild.addChild(CHILD_LOCATION.RIGHT, new BinaryTree<number>(6));
+            secondChild.addChild(fifthChild);
+            secondChild.addChild(new BinaryTree<number>(6), CHILD_LOCATION.RIGHT);
 
-            treeInstance.addChild(CHILD_LOCATION.LEFT, firstChild);
-            treeInstance.addChild(CHILD_LOCATION.RIGHT, secondChild);
+            treeInstance.addChild(firstChild);
+            treeInstance.addChild(secondChild, CHILD_LOCATION.RIGHT);
 
             t.equal(treeInstance.height(), 4);
+            t.end();
+        });
+    });
+
+    t.test('height', (t: test.Test) => {
+        t.test('handles a tree with a single node correctly', (t: test.Test) => {
+            const treeInstance = new BinaryTree<number>(0);
+
+            t.equal(treeInstance.numChildren(), 0);
+            t.end();
+        });
+
+        t.test('handles a tree with one child correctly', (t: test.Test) => {
+            const treeInstance = new BinaryTree<number>(0);
+            treeInstance.addChild(new BinaryTree<number>(1));
+
+            t.equal(treeInstance.numChildren(), 1);
+            t.end();
+        });
+
+        t.test('handles a tree with multiple children', (t: test.Test) => {
+            const treeInstance = new BinaryTree<number>(0);
+            treeInstance.addChild(new BinaryTree<number>(1));
+            treeInstance.addChild(new BinaryTree<number>(2), CHILD_LOCATION.RIGHT);
+
+            t.equal(treeInstance.numChildren(), 2);
             t.end();
         });
     });
