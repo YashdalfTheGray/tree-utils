@@ -39,7 +39,7 @@ export class BinaryTree<T> implements ITree<T> {
     }
 
     public removeChild(loc: CHILD_LOCATION): BinaryTree<T> {
-        const removedChild = this.getChildAt(loc)._clone();
+        const removedChild = this.getChildAt(loc).clone();
         if (loc === CHILD_LOCATION.LEFT) {
             this._leftChild = undefined;
         }
@@ -91,7 +91,7 @@ export class BinaryTree<T> implements ITree<T> {
         }
     }
 
-    private _clone(): BinaryTree<T> {
+    public clone(): BinaryTree<T> {
         const newTree = new BinaryTree<T>();
 
         newTree.setNodeData(this.getNodeData());
