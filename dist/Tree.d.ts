@@ -1,11 +1,12 @@
 export interface ITree<T> {
     getNodeData(): T;
     setNodeData(data: T): void;
-    addChild(node: ITree<T>): void;
+    addChild(node: ITree<T>, index?: number): void;
     getChildAt(index: number): ITree<T>;
     removeChild(index: number): ITree<T>;
     size(): number;
     height(): number;
+    numChildren(): number;
 }
 export declare class Tree<T> implements ITree<T> {
     private _data;
@@ -18,4 +19,5 @@ export declare class Tree<T> implements ITree<T> {
     removeChild(index: number): Tree<T>;
     size(): number;
     height(): number;
+    numChildren(): number;
 }

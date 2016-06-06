@@ -38,6 +38,9 @@ var Tree = (function () {
             return 1;
         }
     };
+    Tree.prototype.numChildren = function () {
+        return this._children.length;
+    };
     return Tree;
 }());
 exports.Tree = Tree;
