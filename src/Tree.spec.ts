@@ -96,6 +96,31 @@ test('Tree', (t: test.Test) => {
         });
     });
 
+    t.test('clone', (t: test.Test) => {
+
+        t.test('clones a single node', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+            const cloneTree = treeInstance.clone();
+
+            t.assert(cloneTree instanceof Tree, 'should be a tree');
+            t.equal(treeInstance.getNodeData(), cloneTree.getNodeData());
+            t.end();
+        });
+
+        t.test('clones a tree with children', (t: test.Test) => {
+            const treeInstance = new Tree<number>(0);
+            treeInstance.addChild(new Tree<number>(1));
+            treeInstance.addChild(new Tree<number>(2));
+            const cloneTree = treeInstance.clone();
+
+            t.assert(cloneTree instanceof Tree, 'should be a tree');
+            t.equal(treeInstance.getNodeData(), cloneTree.getNodeData());
+            t.equal(treeInstance.getChildAt(0).getNodeData(), cloneTree.getChildAt(0).getNodeData());
+            t.equal(treeInstance.getChildAt(1).getNodeData(), cloneTree.getChildAt(1).getNodeData());
+            t.end();
+        });
+    });
+
     t.test('size', (t: test.Test) => {
         t.test('returns 1 for a tree with one node', (t: test.Test) => {
             const treeInstance = new Tree<number>(0);

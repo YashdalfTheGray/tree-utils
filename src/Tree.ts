@@ -1,4 +1,4 @@
-import {remove, max} from "lodash";
+import {remove, max, clone} from "lodash";
 
 export interface ITree<T> {
     getNodeData(): T;
@@ -6,6 +6,7 @@ export interface ITree<T> {
     addChild(node: ITree<T>, index?: number): void;
     getChildAt(index: number): ITree<T>;
     removeChild(index: number): ITree<T>;
+    clone(): ITree<T>;
     size(): number;
     height(): number;
     numChildren(): number;
@@ -40,6 +41,13 @@ export class Tree<T> implements ITree<T> {
         return remove(this._children, (value, i) => {
             return i === index;
         })[0];
+    }
+
+    public clone(): Tree<T> {
+        const newTree = new Tree<T>(this.getNodeData());
+        newTree._children = clone(this._children);
+
+        return newTree;
     }
 
     public size(): number {
