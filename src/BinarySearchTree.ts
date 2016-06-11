@@ -13,4 +13,8 @@ export class BinarySearchTree<T> {
     public getNodeData(): T {
         return this._data;
     }
+
+    public setNodeData(data: T): void {
+        this._data = data;
+    }
 }
