@@ -24,13 +24,13 @@ export class BinaryTree<T> implements ITree<T> {
         this._data = data;
     }
 
-    public addChild(node: BinaryTree<T>, index?: CHILD_LOCATION) {
+    public addChild(node: T, index?: CHILD_LOCATION) {
         index = index || CHILD_LOCATION.LEFT;
         if (index === CHILD_LOCATION.LEFT) {
-            this._leftChild = node;
+            this._leftChild = new BinaryTree<T>(node);
         }
         else {
-            this._rightChild = node;
+            this._rightChild = new BinaryTree<T>(node);
         }
     }
 
@@ -94,9 +94,9 @@ export class BinaryTree<T> implements ITree<T> {
     public clone(): BinaryTree<T> {
         const newTree = new BinaryTree<T>();
 
-        newTree.setNodeData(this.getNodeData());
-        newTree.addChild(this.getChildAt(CHILD_LOCATION.LEFT), CHILD_LOCATION.LEFT);
-        newTree.addChild(this.getChildAt(CHILD_LOCATION.RIGHT), CHILD_LOCATION.RIGHT);
+        newTree._data = this._data;
+        newTree._leftChild = this._leftChild;
+        newTree._rightChild = this._rightChild;
 
         return newTree;
     }
