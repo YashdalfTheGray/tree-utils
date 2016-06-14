@@ -43,7 +43,7 @@ test('Tree', (t: test.Test) => {
         const treeInstance = new Tree<Object>();
 
         t.test('adds a child to the children list', (t: test.Test) => {
-            treeInstance.addChild(new Tree<Object>({ test: 'foo' }));
+            treeInstance.addChild({ test: 'foo' });
 
             t.deepEquals(treeInstance.getChildAt(0).getNodeData(), { test: 'foo' });
             t.end();
@@ -54,7 +54,7 @@ test('Tree', (t: test.Test) => {
         const treeInstance = new Tree<string>('root');
 
         t.test('gets a child at a valid location', (t: test.Test) => {
-            treeInstance.addChild(new Tree<string>('l1c1'));
+            treeInstance.addChild('l1c1');
 
             t.equals(treeInstance.getChildAt(0).getNodeData(), 'l1c1');
             t.end();
@@ -70,9 +70,9 @@ test('Tree', (t: test.Test) => {
         function setup() {
             const t = new Tree<number>(0);
 
-            t.addChild(new Tree<number>(1));
-            t.addChild(new Tree<number>(2));
-            t.addChild(new Tree<number>(3));
+            t.addChild(1);
+            t.addChild(2);
+            t.addChild(3);
 
             return t;
         }
@@ -109,8 +109,8 @@ test('Tree', (t: test.Test) => {
 
         t.test('clones a tree with children', (t: test.Test) => {
             const treeInstance = new Tree<number>(0);
-            treeInstance.addChild(new Tree<number>(1));
-            treeInstance.addChild(new Tree<number>(2));
+            treeInstance.addChild(1);
+            treeInstance.addChild(2);
             const cloneTree = treeInstance.clone();
 
             t.assert(cloneTree instanceof Tree, 'should be a tree');
@@ -132,8 +132,8 @@ test('Tree', (t: test.Test) => {
         t.test('returns 3 for a tree with one node and two children', (t: test.Test) => {
             const treeInstance = new Tree<number>(0);
 
-            treeInstance.addChild(new Tree<number>(1));
-            treeInstance.addChild(new Tree<number>(2));
+            treeInstance.addChild(1);
+            treeInstance.addChild(2);
 
             t.equal(treeInstance.size(), 3);
             t.end();
@@ -141,12 +141,12 @@ test('Tree', (t: test.Test) => {
 
         t.test('handles trees with asymmetric children', (t: test.Test) => {
             const treeInstance = new Tree<number>(0);
-            const firstChild = new Tree<number>(1);
+            treeInstance.addChild(1);
+            const firstChild = treeInstance.getChildAt(0);
 
-            firstChild.addChild(new Tree<number>(3));
-            firstChild.addChild(new Tree<number>(4));
-            treeInstance.addChild(firstChild);
-            treeInstance.addChild(new Tree<number>(2));
+            firstChild.addChild(3);
+            firstChild.addChild(4);
+            treeInstance.addChild(2);
 
             t.equal(treeInstance.size(), 5);
             t.end();
@@ -163,8 +163,8 @@ test('Tree', (t: test.Test) => {
 
         t.test('handles a tree with multiple children', (t: test.Test) => {
             const treeInstance = new Tree<number>(0);
-            treeInstance.addChild(new Tree<number>(1));
-            treeInstance.addChild(new Tree<number>(2));
+            treeInstance.addChild(1);
+            treeInstance.addChild(2);
 
             t.equal(treeInstance.height(), 2);
             t.end();
@@ -172,17 +172,19 @@ test('Tree', (t: test.Test) => {
 
         t.test('handles trees with asymmetric children', (t: test.Test) => {
             const treeInstance = new Tree<number>(0);
-            const firstChild = new Tree<number>(1);
-            const secondChild = new Tree<number>(2);
-            const fifthChild = new Tree<number>(5);
+            treeInstance.addChild(1);
+            treeInstance.addChild(2);
 
-            fifthChild.addChild(new Tree<number>(7));
-            firstChild.addChild(new Tree<number>(3));
-            firstChild.addChild(new Tree<number>(4));
-            secondChild.addChild(fifthChild);
-            secondChild.addChild(new Tree<number>(6));
-            treeInstance.addChild(firstChild);
-            treeInstance.addChild(secondChild);
+            const firstChild = treeInstance.getChildAt(0);
+            firstChild.addChild(3);
+            firstChild.addChild(4);
+
+            const secondChild = treeInstance.getChildAt(1);
+            secondChild.addChild(5);
+            secondChild.addChild(6);
+
+            const fifthChild = secondChild.getChildAt(0);
+            fifthChild.addChild(7);
 
             t.equal(treeInstance.height(), 4);
             t.end();
@@ -199,8 +201,8 @@ test('Tree', (t: test.Test) => {
 
         t.test('handles a tree with multiple children', (t: test.Test) => {
             const treeInstance = new Tree<number>(0);
-            treeInstance.addChild(new Tree<number>(1));
-            treeInstance.addChild(new Tree<number>(2));
+            treeInstance.addChild(1);
+            treeInstance.addChild(2);
 
             t.equal(treeInstance.numChildren(), 2);
             t.end();
@@ -208,18 +210,20 @@ test('Tree', (t: test.Test) => {
 
         t.test('handles trees with asymmetric children', (t: test.Test) => {
             const treeInstance = new Tree<number>(0);
-            const firstChild = new Tree<number>(1);
-            const secondChild = new Tree<number>(2);
-            const fifthChild = new Tree<number>(6);
+            treeInstance.addChild(1);
+            treeInstance.addChild(2);
+            treeInstance.addChild(3);
 
-            fifthChild.addChild(new Tree<number>(8));
-            firstChild.addChild(new Tree<number>(4));
-            firstChild.addChild(new Tree<number>(5));
-            secondChild.addChild(fifthChild);
-            secondChild.addChild(new Tree<number>(7));
-            treeInstance.addChild(firstChild);
-            treeInstance.addChild(secondChild);
-            treeInstance.addChild(new Tree<number>(3));
+            const firstChild = treeInstance.getChildAt(0);
+            firstChild.addChild(4);
+            firstChild.addChild(5);
+
+            const secondChild = treeInstance.getChildAt(1);
+            secondChild.addChild(6);
+            secondChild.addChild(7);
+
+            const fifthChild = secondChild.getChildAt(0);
+            fifthChild.addChild(8);
 
             t.equal(treeInstance.numChildren(), 3);
             t.end();

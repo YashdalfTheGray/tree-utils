@@ -3,7 +3,7 @@ import {remove, max, clone} from "lodash";
 export interface ITree<T> {
     getNodeData(): T;
     setNodeData(data: T): void;
-    addChild(node: ITree<T>, index?: number): void;
+    addChild(node: T, index?: number): void;
     getChildAt(index: number): ITree<T>;
     removeChild(index: number): ITree<T>;
     clone(): ITree<T>;
@@ -29,8 +29,8 @@ export class Tree<T> implements ITree<T> {
         this._data = data;
     }
 
-    public addChild(node: Tree<T>): void {
-        this._children.push(node);
+    public addChild(node: T): void {
+        this._children.push(new Tree<T>(node));
     }
 
     public getChildAt(index: number): Tree<T> {
