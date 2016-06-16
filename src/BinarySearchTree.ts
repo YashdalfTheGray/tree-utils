@@ -1,7 +1,7 @@
 import {ITree} from "./Tree";
-import {CHILD_LOCATION} from "./BinaryTree";
+import {ChildLocation} from "./BinaryTree";
 
-export {CHILD_LOCATION} from "./BinaryTree";
+export {ChildLocation} from "./BinaryTree";
 
 export class BinarySearchTree<T> {
     private _sortFunction: (a: T, b: T) => number;
@@ -23,30 +23,33 @@ export class BinarySearchTree<T> {
     }
 
     public addChild(child: T): void {
-        var selectedChild: BinarySearchTree<T>;
-
-        console.log(this._sortFunction(child, this._data) > 0);
+        var selectedChild: string;
 
         if (this._sortFunction(child, this._data) > 0) {
-            selectedChild = this._rightChild;
+            selectedChild = '_rightChild';
         }
         else if (this._sortFunction(child, this._data) < 0) {
-            selectedChild = this._leftChild;
+            selectedChild = '_leftChild';
         }
 
-        if (selectedChild) {
-            selectedChild.addChild(child);
+        if (this[selectedChild]) {
+            this[selectedChild].addChild(child);
         }
         else {
-            console.log(selectedChild);
-            selectedChild = new BinarySearchTree<T>(this._sortFunction, child);
-            console.log(selectedChild);
-            console.log(this._leftChild);
-            console.log(this._rightChild);
+            this[selectedChild] = new BinarySearchTree<T>(this._sortFunction, child);
         }
     }
 
-    public getChildAt(loc: CHILD_LOCATION): BinarySearchTree<T> {
-        return loc === CHILD_LOCATION.LEFT ? this._leftChild : this._rightChild;
+    public getChildAt(loc: ChildLocation): BinarySearchTree<T> {
+        return loc === ChildLocation.LEFT ? this._leftChild.clone() : this._rightChild.clone();
+    }
+
+    public clone(): BinarySearchTree<T> {
+        const newTree = new BinarySearchTree(this._sortFunction, this._data);
+
+        newTree._leftChild = this._leftChild;
+        newTree._rightChild = this._rightChild;
+
+        return newTree;
     }
 }

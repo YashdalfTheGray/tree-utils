@@ -1,6 +1,6 @@
 import * as test from "tape";
 
-import {BinarySearchTree, CHILD_LOCATION} from "./BinarySearchTree";
+import {BinarySearchTree, ChildLocation} from "./BinarySearchTree";
 
 test('BinarySearchTree', (t: test.Test): void => {
 
@@ -34,22 +34,29 @@ test('BinarySearchTree', (t: test.Test): void => {
         t.test('adds a child to the left when the test result is < 0', (t: test.Test): void => {
             testTree.addChild(3);
 
-            t.equal(testTree.getChildAt(CHILD_LOCATION.LEFT), 3);
+            t.equal(testTree.getChildAt(ChildLocation.LEFT).getNodeData(), 3);
             t.end();
         });
 
         t.test('adds a child to the right when the test result is > 0', (t: test.Test): void => {
             testTree.addChild(7);
 
-            t.equal(testTree.getChildAt(CHILD_LOCATION.RIGHT), 7);
+            t.equal(testTree.getChildAt(ChildLocation.RIGHT).getNodeData(), 7);
             t.end();
         });
 
         t.test('does not add a child when equal to the node data', (t: test.Test): void => {
             testTree.addChild(5);
 
-            t.notEqual(testTree.getChildAt(CHILD_LOCATION.LEFT), 5);
-            t.notEqual(testTree.getChildAt(CHILD_LOCATION.RIGHT), 5);
+            t.notEqual(testTree.getChildAt(ChildLocation.LEFT).getNodeData(), 5);
+            t.notEqual(testTree.getChildAt(ChildLocation.RIGHT).getNodeData(), 5);
+            t.end();
+        });
+
+        t.test('appends to child when a child exists', (t: test.Test): void => {
+            testTree.addChild(4);
+
+            t.equal(testTree.getChildAt(ChildLocation.LEFT).getChildAt(ChildLocation.RIGHT).getNodeData(), 4);
             t.end();
         });
     });
