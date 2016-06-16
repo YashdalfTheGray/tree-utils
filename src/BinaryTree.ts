@@ -2,7 +2,7 @@ import {max} from "lodash";
 
 import {ITree} from "./Tree";
 
-export enum CHILD_LOCATION {
+export enum ChildLocation {
     LEFT = 0,
     RIGHT = 1
 }
@@ -24,9 +24,9 @@ export class BinaryTree<T> implements ITree<T> {
         this._data = data;
     }
 
-    public addChild(node: T, index?: CHILD_LOCATION) {
-        index = index || CHILD_LOCATION.LEFT;
-        if (index === CHILD_LOCATION.LEFT) {
+    public addChild(node: T, index?: ChildLocation) {
+        index = index || ChildLocation.LEFT;
+        if (index === ChildLocation.LEFT) {
             this._leftChild = new BinaryTree<T>(node);
         }
         else {
@@ -34,13 +34,13 @@ export class BinaryTree<T> implements ITree<T> {
         }
     }
 
-    public getChildAt(loc: CHILD_LOCATION): BinaryTree<T> {
-        return loc === CHILD_LOCATION.LEFT ? this._leftChild : this._rightChild;
+    public getChildAt(loc: ChildLocation): BinaryTree<T> {
+        return loc === ChildLocation.LEFT ? this._leftChild : this._rightChild;
     }
 
-    public removeChild(loc: CHILD_LOCATION): BinaryTree<T> {
+    public removeChild(loc: ChildLocation): BinaryTree<T> {
         const removedChild = this.getChildAt(loc).clone();
-        if (loc === CHILD_LOCATION.LEFT) {
+        if (loc === ChildLocation.LEFT) {
             this._leftChild = undefined;
         }
         else {

@@ -1,6 +1,6 @@
 import * as test from "tape";
 
-import {BinaryTree, CHILD_LOCATION} from "./BinaryTree";
+import {BinaryTree, ChildLocation} from "./BinaryTree";
 
 test('Binary Tree', (t: test.Test) => {
 
@@ -45,14 +45,14 @@ test('Binary Tree', (t: test.Test) => {
         t.test('adds a left child', (t: test.Test) => {
             treeInstance.addChild({ test: 'foo' });
 
-            t.deepEquals(treeInstance.getChildAt(CHILD_LOCATION.LEFT).getNodeData(), { test: 'foo' });
+            t.deepEquals(treeInstance.getChildAt(ChildLocation.LEFT).getNodeData(), { test: 'foo' });
             t.end();
         });
 
         t.test('adds a right child', (t: test.Test) => {
-            treeInstance.addChild({ test: 'foo' }, CHILD_LOCATION.RIGHT);
+            treeInstance.addChild({ test: 'foo' }, ChildLocation.RIGHT);
 
-            t.deepEquals(treeInstance.getChildAt(CHILD_LOCATION.RIGHT).getNodeData(), { test: 'foo' });
+            t.deepEquals(treeInstance.getChildAt(ChildLocation.RIGHT).getNodeData(), { test: 'foo' });
             t.end();
         });
     });
@@ -63,12 +63,12 @@ test('Binary Tree', (t: test.Test) => {
         t.test('gets a child at a valid location', (t: test.Test) => {
             treeInstance.addChild('l1c1');
 
-            t.equals(treeInstance.getChildAt(CHILD_LOCATION.LEFT).getNodeData(), 'l1c1');
+            t.equals(treeInstance.getChildAt(ChildLocation.LEFT).getNodeData(), 'l1c1');
             t.end();
         });
 
         t.test('gracefully handles invalid child locations', (t: test.Test) => {
-            t.equals(treeInstance.getChildAt(CHILD_LOCATION.RIGHT), undefined);
+            t.equals(treeInstance.getChildAt(ChildLocation.RIGHT), undefined);
             t.end();
         });
     });
@@ -78,14 +78,14 @@ test('Binary Tree', (t: test.Test) => {
             const t = new BinaryTree<number>(0);
 
             t.addChild(1);
-            t.addChild(2, CHILD_LOCATION.RIGHT);
+            t.addChild(2, ChildLocation.RIGHT);
 
             return t;
         }
 
         t.test('removes and returns the right child', (t: test.Test) => {
             const treeInstance = setup();
-            const removedChild = treeInstance.removeChild(CHILD_LOCATION.RIGHT);
+            const removedChild = treeInstance.removeChild(ChildLocation.RIGHT);
 
             t.assert(removedChild !== undefined, 'exists');
             t.assert(removedChild instanceof BinaryTree, 'is a binary tree');
@@ -95,7 +95,7 @@ test('Binary Tree', (t: test.Test) => {
 
         t.test('removes and returns the left child', (t: test.Test) => {
             const treeInstance = setup();
-            const removedChild = treeInstance.removeChild(CHILD_LOCATION.LEFT);
+            const removedChild = treeInstance.removeChild(ChildLocation.LEFT);
 
             t.assert(removedChild !== undefined, 'exists');
             t.assert(removedChild instanceof BinaryTree, 'is a binary tree');
@@ -116,7 +116,7 @@ test('Binary Tree', (t: test.Test) => {
             const treeInstance = new BinaryTree<number>(0);
 
             treeInstance.addChild(1);
-            treeInstance.addChild(2, CHILD_LOCATION.RIGHT);
+            treeInstance.addChild(2, ChildLocation.RIGHT);
 
             t.equal(treeInstance.size(), 3);
             t.end();
@@ -125,11 +125,11 @@ test('Binary Tree', (t: test.Test) => {
         t.test('handles trees with asymmetric children', (t: test.Test) => {
             const treeInstance = new BinaryTree<number>(0);
             treeInstance.addChild(1);
-            treeInstance.addChild(2, CHILD_LOCATION.RIGHT);
+            treeInstance.addChild(2, ChildLocation.RIGHT);
 
-            const firstChild = treeInstance.getChildAt(CHILD_LOCATION.LEFT);
+            const firstChild = treeInstance.getChildAt(ChildLocation.LEFT);
             firstChild.addChild(3);
-            firstChild.addChild(4, CHILD_LOCATION.RIGHT);
+            firstChild.addChild(4, ChildLocation.RIGHT);
 
             t.equal(treeInstance.size(), 5);
             t.end();
@@ -147,7 +147,7 @@ test('Binary Tree', (t: test.Test) => {
         t.test('handles a tree with multiple children', (t: test.Test) => {
             const treeInstance = new BinaryTree<number>(0);
             treeInstance.addChild(1);
-            treeInstance.addChild(2, CHILD_LOCATION.RIGHT);
+            treeInstance.addChild(2, ChildLocation.RIGHT);
 
             t.equal(treeInstance.height(), 2);
             t.end();
@@ -156,17 +156,17 @@ test('Binary Tree', (t: test.Test) => {
         t.test('handles trees with asymmetric children', (t: test.Test) => {
             const treeInstance = new BinaryTree<number>(0);
             treeInstance.addChild(1);
-            treeInstance.addChild(2, CHILD_LOCATION.RIGHT);
+            treeInstance.addChild(2, ChildLocation.RIGHT);
 
-            const firstChild = treeInstance.getChildAt(CHILD_LOCATION.LEFT);
+            const firstChild = treeInstance.getChildAt(ChildLocation.LEFT);
             firstChild.addChild(3);
-            firstChild.addChild(4, CHILD_LOCATION.RIGHT);
+            firstChild.addChild(4, ChildLocation.RIGHT);
 
-            const secondChild = treeInstance.getChildAt(CHILD_LOCATION.RIGHT);
+            const secondChild = treeInstance.getChildAt(ChildLocation.RIGHT);
             secondChild.addChild(5);
-            secondChild.addChild(6, CHILD_LOCATION.RIGHT);
+            secondChild.addChild(6, ChildLocation.RIGHT);
 
-            const fifthChild = secondChild.getChildAt(CHILD_LOCATION.LEFT);
+            const fifthChild = secondChild.getChildAt(ChildLocation.LEFT);
             fifthChild.addChild(7);
 
             t.equal(treeInstance.height(), 4);
@@ -193,7 +193,7 @@ test('Binary Tree', (t: test.Test) => {
         t.test('handles a tree with multiple children', (t: test.Test) => {
             const treeInstance = new BinaryTree<number>(0);
             treeInstance.addChild(1);
-            treeInstance.addChild(2, CHILD_LOCATION.RIGHT);
+            treeInstance.addChild(2, ChildLocation.RIGHT);
 
             t.equal(treeInstance.numChildren(), 2);
             t.end();
