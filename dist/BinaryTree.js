@@ -1,10 +1,10 @@
 "use strict";
 var lodash_1 = require("lodash");
-(function (CHILD_LOCATION) {
-    CHILD_LOCATION[CHILD_LOCATION["LEFT"] = 0] = "LEFT";
-    CHILD_LOCATION[CHILD_LOCATION["RIGHT"] = 1] = "RIGHT";
-})(exports.CHILD_LOCATION || (exports.CHILD_LOCATION = {}));
-var CHILD_LOCATION = exports.CHILD_LOCATION;
+(function (ChildLocation) {
+    ChildLocation[ChildLocation["LEFT"] = 0] = "LEFT";
+    ChildLocation[ChildLocation["RIGHT"] = 1] = "RIGHT";
+})(exports.ChildLocation || (exports.ChildLocation = {}));
+var ChildLocation = exports.ChildLocation;
 var BinaryTree = (function () {
     function BinaryTree(data) {
         this._data = data;
@@ -16,20 +16,20 @@ var BinaryTree = (function () {
         this._data = data;
     };
     BinaryTree.prototype.addChild = function (node, index) {
-        index = index || CHILD_LOCATION.LEFT;
-        if (index === CHILD_LOCATION.LEFT) {
-            this._leftChild = node;
+        index = index || ChildLocation.LEFT;
+        if (index === ChildLocation.LEFT) {
+            this._leftChild = new BinaryTree(node);
         }
         else {
-            this._rightChild = node;
+            this._rightChild = new BinaryTree(node);
         }
     };
     BinaryTree.prototype.getChildAt = function (loc) {
-        return loc === CHILD_LOCATION.LEFT ? this._leftChild : this._rightChild;
+        return loc === ChildLocation.LEFT ? this._leftChild : this._rightChild;
     };
     BinaryTree.prototype.removeChild = function (loc) {
-        var removedChild = this.getChildAt(loc)._clone();
-        if (loc === CHILD_LOCATION.LEFT) {
+        var removedChild = this.getChildAt(loc).clone();
+        if (loc === ChildLocation.LEFT) {
             this._leftChild = undefined;
         }
         else {
@@ -76,11 +76,11 @@ var BinaryTree = (function () {
             return 0;
         }
     };
-    BinaryTree.prototype._clone = function () {
+    BinaryTree.prototype.clone = function () {
         var newTree = new BinaryTree();
-        newTree.setNodeData(this.getNodeData());
-        newTree.addChild(this.getChildAt(CHILD_LOCATION.LEFT), CHILD_LOCATION.LEFT);
-        newTree.addChild(this.getChildAt(CHILD_LOCATION.RIGHT), CHILD_LOCATION.RIGHT);
+        newTree._data = this._data;
+        newTree._leftChild = this._leftChild;
+        newTree._rightChild = this._rightChild;
         return newTree;
     };
     return BinaryTree;

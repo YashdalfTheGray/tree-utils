@@ -1,5 +1,5 @@
 import { ITree } from "./Tree";
-export declare enum CHILD_LOCATION {
+export declare enum ChildLocation {
     LEFT = 0,
     RIGHT = 1,
 }
@@ -10,11 +10,11 @@ export declare class BinaryTree<T> implements ITree<T> {
     constructor(data?: T);
     getNodeData(): T;
     setNodeData(data: T): void;
-    addChild(node: BinaryTree<T>, index?: CHILD_LOCATION): void;
-    getChildAt(loc: CHILD_LOCATION): BinaryTree<T>;
-    removeChild(loc: CHILD_LOCATION): BinaryTree<T>;
+    addChild(node: T, index?: ChildLocation): void;
+    getChildAt(loc: ChildLocation): BinaryTree<T>;
+    removeChild(loc: ChildLocation): BinaryTree<T>;
     size(): number;
     height(): number;
     numChildren(): number;
-    private _clone();
+    clone(): BinaryTree<T>;
 }
