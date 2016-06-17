@@ -60,4 +60,26 @@ test('BinarySearchTree', (t: test.Test): void => {
             t.end();
         });
     });
+
+    t.test('clone', (t: test.Test): void => {
+        const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+
+        t.test('clones a single node tree', (t: test.Test): void => {
+            const anotherTree = testTree.clone();
+
+            t.equal(anotherTree.getNodeData(), testTree.getNodeData());
+            t.end();
+        });
+
+        t.test('clones a tree with two children', (t: test.Test): void => {
+            testTree.addChild(3);
+            testTree.addChild(7);
+
+            const anotherTree = testTree.clone();
+            t.equal(anotherTree.getNodeData(), testTree.getNodeData());
+            t.same(anotherTree.getChildAt(ChildLocation.LEFT), testTree.getChildAt(ChildLocation.LEFT));
+            t.same(anotherTree.getChildAt(ChildLocation.RIGHT), testTree.getChildAt(ChildLocation.RIGHT));
+            t.end();
+        });
+    });
 });
