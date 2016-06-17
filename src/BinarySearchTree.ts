@@ -47,8 +47,8 @@ export class BinarySearchTree<T> {
     public clone(): BinarySearchTree<T> {
         const newTree = new BinarySearchTree(this._sortFunction, this._data);
 
-        newTree._leftChild = this._leftChild;
-        newTree._rightChild = this._rightChild;
+        newTree._leftChild = this._leftChild ? this._leftChild.clone() : undefined;
+        newTree._rightChild = this._rightChild ? this._rightChild.clone() : undefined;
 
         return newTree;
     }
