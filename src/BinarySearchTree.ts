@@ -9,7 +9,7 @@ export class BinarySearchTree<T> {
     private _leftChild: BinarySearchTree<T>;
     private _rightChild: BinarySearchTree<T>;
 
-    constructor(sortFunction: (a: T, b: T) => number, data?: T) {
+    constructor(sortFunction: (a: T, b: T) => number, data: T) {
         this._sortFunction = sortFunction;
         this._data = data;
     }
@@ -41,7 +41,12 @@ export class BinarySearchTree<T> {
     }
 
     public getChildAt(loc: ChildLocation): BinarySearchTree<T> {
-        return loc === ChildLocation.LEFT ? this._leftChild.clone() : this._rightChild.clone();
+        if (loc === ChildLocation.LEFT) {
+            return this._leftChild.clone();
+        }
+        else if (loc === ChildLocation.RIGHT) {
+            return this._rightChild.clone();
+        }
     }
 
     public clone(): BinarySearchTree<T> {

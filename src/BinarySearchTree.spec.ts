@@ -20,9 +20,9 @@ test('BinarySearchTree', (t: test.Test): void => {
     });
 
     t.test('setNodeData', (t: test.Test): void => {
-        const testTree = new BinarySearchTree<number>((a, b) => a - b);
+        const testTree = new BinarySearchTree<number>((a, b) => a - b, 0);
 
-        t.equal(testTree.getNodeData(), undefined);
+        t.equal(testTree.getNodeData(), 0);
         testTree.setNodeData(2);
         t.equal(testTree.getNodeData(), 2);
         t.end();
@@ -60,6 +60,29 @@ test('BinarySearchTree', (t: test.Test): void => {
             t.end();
         });
     });
+
+    t.test('getChild', (t: test.Test): void => {
+        const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+        testTree.addChild(3);
+        testTree.addChild(7);
+
+        const leftChild = testTree.getChildAt(ChildLocation.LEFT);
+        const rightChild = testTree.getChildAt(ChildLocation.RIGHT);
+
+        t.test('returns the requested child', (t: test.Test): void => {
+            t.equal(leftChild.getNodeData(), 3);
+            t.equal(rightChild.getNodeData(), 7);
+            t.end();
+        });
+
+        t.test('children are clones, not references', (t: test.Test) => {
+            t.same(testTree.getChildAt(ChildLocation.LEFT), leftChild);
+            t.same(testTree.getChildAt(ChildLocation.RIGHT), rightChild);
+            t.notEqual(testTree.getChildAt(ChildLocation.LEFT), leftChild);
+            t.notEqual(testTree.getChildAt(ChildLocation.RIGHT), rightChild);
+            t.end();
+        });
+    })
 
     t.test('clone', (t: test.Test): void => {
         const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
