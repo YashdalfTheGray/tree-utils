@@ -97,6 +97,11 @@ test('BinarySearchTree', (t: test.Test): void => {
             t.same(testTree.find(6),testTree.getChildAt(ChildLocation.RIGHT));
             t.end();
         });
+
+        t.test('returns -1 for data not found', (t: test.Test): void => {
+            t.equal(testTree.find(10), -1);
+            t.end();
+        });
     });
 
     t.test('clone', (t: test.Test): void => {

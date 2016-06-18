@@ -50,10 +50,10 @@ export class BinarySearchTree<T> {
     }
 
     public find(data: T): BinarySearchTree<T>|number {
-        if (this._data < data) {
+        if (this._rightChild && this._data < data) {
             return this._rightChild.find(data);
         }
-        else if (this._data > data) {
+        else if (this._leftChild && this._data > data) {
             return this._leftChild.find(data);
         }
         else if (this._data === data) {
