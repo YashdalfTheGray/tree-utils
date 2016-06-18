@@ -61,7 +61,7 @@ test('BinarySearchTree', (t: test.Test): void => {
         });
     });
 
-    t.test('getChild', (t: test.Test): void => {
+    t.test('getChildAt', (t: test.Test): void => {
         const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
         testTree.addChild(3);
         testTree.addChild(7);
@@ -82,7 +82,22 @@ test('BinarySearchTree', (t: test.Test): void => {
             t.notEqual(testTree.getChildAt(ChildLocation.RIGHT), rightChild);
             t.end();
         });
-    })
+    });
+
+    t.test('find', (t: test.Test): void => {
+        const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+        testTree.addChild(3);
+        testTree.addChild(4);
+        testTree.addChild(6);
+        testTree.addChild(7);
+        testTree.addChild(2);
+
+        t.test('finds the correct data', (t: test.Test): void => {
+            t.same(testTree.find(3),testTree.getChildAt(ChildLocation.LEFT));
+            t.same(testTree.find(6),testTree.getChildAt(ChildLocation.RIGHT));
+            t.end();
+        });
+    });
 
     t.test('clone', (t: test.Test): void => {
         const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);

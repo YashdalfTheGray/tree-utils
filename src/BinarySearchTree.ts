@@ -49,6 +49,21 @@ export class BinarySearchTree<T> {
         }
     }
 
+    public find(data: T): BinarySearchTree<T>|number {
+        if (this._data < data) {
+            return this._rightChild.find(data);
+        }
+        else if (this._data > data) {
+            return this._leftChild.find(data);
+        }
+        else if (this._data === data) {
+            return this.clone();
+        }
+        else {
+            return -1;
+        }
+    }
+
     public clone(): BinarySearchTree<T> {
         const newTree = new BinarySearchTree(this._sortFunction, this._data);
 
