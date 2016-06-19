@@ -117,6 +117,7 @@ test('BinarySearchTree', (t: test.Test): void => {
 
         t.test('removes a leaf', (t: test.Test): void => {
             t.equal(testTree.removeChild(2), 2);
+            t.equal(testTree.find(2), -1);
             t.end();
         });
 

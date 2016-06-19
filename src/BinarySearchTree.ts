@@ -55,7 +55,19 @@ export class BinarySearchTree<T> {
 
     public removeChild(childData: T): T {
         if (childData !== this._data) {
-            return childData;
+            const parent = <BinarySearchTree<T>>(this._findParent(childData));
+            let result;
+
+            if (parent._leftChild._data === childData) {
+                result = parent._leftChild._data;
+                parent._leftChild = undefined;
+            }
+            else if (parent._rightChild._data === childData) {
+                result = parent._rightChild._data;
+                parent._rightChild = undefined;
+            }
+
+            return result;
         }
         else {
             throw new SyntaxError('Attempted to remove the root node');
