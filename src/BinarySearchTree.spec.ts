@@ -104,6 +104,28 @@ test('BinarySearchTree', (t: test.Test): void => {
         });
     });
 
+    t.test('removeChild', (t: test.Test): void => {
+        const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+        testTree.addChild(3);
+        testTree.addChild(4);
+        testTree.addChild(6);
+        testTree.addChild(7);
+        testTree.addChild(2);
+        testTree.addChild(9);
+        testTree.addChild(1);
+        testTree.addChild(10);
+
+        t.test('removes a leaf', (t: test.Test): void => {
+            t.equal(testTree.removeChild(2), 2);
+            t.end();
+        });
+
+        t.test('errors when tried to remove the root node', (t: test.Test): void => {
+            t.throws(() => testTree.removeChild(5));
+            t.end();
+        });
+    });
+
     t.test('clone', (t: test.Test): void => {
         const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
 

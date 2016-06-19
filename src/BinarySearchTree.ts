@@ -50,19 +50,17 @@ export class BinarySearchTree<T> {
     }
 
     public find(data: T): BinarySearchTree<T>|number {
-        if (this._rightChild && this._data < data) {
-            return this._rightChild.find(data);
-        }
-        else if (this._leftChild && this._data > data) {
-            return this._leftChild.find(data);
-        }
-        else if (this._data === data) {
-            return this.clone();
+        return this._find(data, true);
+    }
+
+    public removeChild(childData: T): T {
+        if (childData !== this._data) {
+            return childData;
         }
         else {
-            return -1;
+            throw new SyntaxError('Attempted to remove the root node');
         }
-    }
+    };
 
     public clone(): BinarySearchTree<T> {
         const newTree = new BinarySearchTree(this._sortFunction, this._data);
@@ -71,5 +69,36 @@ export class BinarySearchTree<T> {
         newTree._rightChild = this._rightChild ? this._rightChild.clone() : undefined;
 
         return newTree;
+    }
+
+    private _find(data: T, clone: boolean): BinarySearchTree<T>|number {
+        const parent = this._findParent(data);
+
+        if (typeof parent === 'number') {
+            return parent;
+        }
+        else {
+            if (parent._leftChild._data === data) {
+                return clone ? parent._leftChild.clone() : parent._leftChild;
+            }
+            else if (parent._rightChild._data === data) {
+                return clone ? parent._rightChild.clone() : parent._rightChild;
+            }
+        }
+    }
+
+    private _findParent(data: T): BinarySearchTree<T>|number {
+        if ((this._leftChild && this._leftChild._data === data) || (this._rightChild && this._rightChild._data === data)) {
+            return this;
+        }
+        else if (this._rightChild && this._data < data) {
+            return this._rightChild._findParent(data);
+        }
+        else if (this._leftChild && this._data > data) {
+            return this._leftChild._findParent(data);
+        }
+        else {
+            return -1;
+        }
     }
 }
