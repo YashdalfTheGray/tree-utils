@@ -60,11 +60,11 @@ export class BinarySearchTree<T> {
 
             if (parent._leftChild._data === childData) {
                 result = parent._leftChild._data;
-                parent._leftChild = undefined;
+                this._rebuild(parent, '_leftChild');
             }
             else if (parent._rightChild._data === childData) {
                 result = parent._rightChild._data;
-                parent._rightChild = undefined;
+                this._rebuild(parent, '_rightChild');
             }
 
             return result;
@@ -73,6 +73,18 @@ export class BinarySearchTree<T> {
             throw new SyntaxError('Attempted to remove the root node');
         }
     };
+
+    public numChildren(): number {
+        if (this._leftChild && this._rightChild) {
+            return 2;
+        }
+        else if (this._leftChild || this._rightChild) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
 
     public clone(): BinarySearchTree<T> {
         const newTree = new BinarySearchTree(this._sortFunction, this._data);
@@ -111,6 +123,12 @@ export class BinarySearchTree<T> {
         }
         else {
             return -1;
+        }
+    }
+
+    private _rebuild(parent: BinarySearchTree<T>, loc: string): void {
+        if (parent[loc].numChildren() === 0) {
+            delete parent[loc];
         }
     }
 }

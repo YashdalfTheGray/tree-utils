@@ -116,13 +116,44 @@ test('BinarySearchTree', (t: test.Test): void => {
         testTree.addChild(10);
 
         t.test('removes a leaf', (t: test.Test): void => {
-            t.equal(testTree.removeChild(2), 2);
-            t.equal(testTree.find(2), -1);
+            t.equal(testTree.removeChild(1), 1);
+            t.equal(testTree.find(1), -1);
             t.end();
         });
 
         t.test('errors when tried to remove the root node', (t: test.Test): void => {
             t.throws(() => testTree.removeChild(5));
+            t.end();
+        });
+    });
+
+    t.test('numChildren', (t: test.Test): void => {
+        const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+
+        t.test('returns 0 for no children', (t: test.Test): void => {
+            t.equal(testTree.numChildren(), 0);
+            t.end();
+        });
+
+        t.test('returns 1 for left child', (t: test.Test): void => {
+            testTree.addChild(3);
+
+            t.equal(testTree.numChildren(), 1);
+            t.end();
+        });
+
+        t.test('returns 1 for right child', (t: test.Test): void => {
+            const tempTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+            tempTree.addChild(7);
+
+            t.equal(tempTree.numChildren(), 1);
+            t.end();
+        });
+
+        t.test('returns 2 for both children', (t: test.Test): void => {
+            testTree.addChild(7);
+
+            t.equal(testTree.numChildren(), 2);
             t.end();
         });
     });
