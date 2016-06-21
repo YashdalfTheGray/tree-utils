@@ -58,11 +58,11 @@ export class BinarySearchTree<T> {
             const parent = <BinarySearchTree<T>>(this._findParent(childData));
             let result;
 
-            if (parent._leftChild._data === childData) {
+            if (parent._leftChild && parent._leftChild._data === childData) {
                 result = parent._leftChild._data;
                 this._rebuild(parent, '_leftChild');
             }
-            else if (parent._rightChild._data === childData) {
+            else if (parent._rightChild && parent._rightChild._data === childData) {
                 result = parent._rightChild._data;
                 this._rebuild(parent, '_rightChild');
             }
@@ -129,6 +129,12 @@ export class BinarySearchTree<T> {
     private _rebuild(parent: BinarySearchTree<T>, loc: string): void {
         if (parent[loc].numChildren() === 0) {
             delete parent[loc];
+        }
+        else if (parent[loc]._leftChild) {
+            parent[loc] = parent[loc]._leftChild;
+        }
+        else if (parent[loc]._rightChild) {
+            parent[loc] = parent[loc]._rightChild;
         }
     }
 }

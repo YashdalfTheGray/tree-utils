@@ -108,16 +108,31 @@ test('BinarySearchTree', (t: test.Test): void => {
         const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
         testTree.addChild(3);
         testTree.addChild(4);
-        testTree.addChild(6);
         testTree.addChild(7);
+        testTree.addChild(6);
         testTree.addChild(2);
         testTree.addChild(9);
         testTree.addChild(1);
         testTree.addChild(10);
 
         t.test('removes a leaf', (t: test.Test): void => {
-            t.equal(testTree.removeChild(1), 1);
-            t.equal(testTree.find(1), -1);
+            t.equal(testTree.removeChild(10), 10);
+            t.equal(testTree.find(10), -1);
+            t.end();
+        });
+
+        t.test('removes a branch with a left child', (t: test.Test): void => {
+            t.equal(testTree.removeChild(2), 2);
+            t.equal(testTree.find(2), -1);
+            t.equal((<BinarySearchTree<number>>testTree.find(3)).getChildAt(ChildLocation.LEFT).getNodeData(), 1);
+            t.end();
+        });
+
+        t.test('removes a branch with a right child', (t: test.Test): void => {
+            testTree.removeChild(1);
+            t.equal(testTree.removeChild(3), 3);
+            t.equal(testTree.find(3), -1);
+            t.equal(testTree.getChildAt(ChildLocation.LEFT).getNodeData(), 4);
             t.end();
         });
 
