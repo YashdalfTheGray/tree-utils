@@ -142,6 +142,39 @@ test('BinarySearchTree', (t: test.Test): void => {
         });
     });
 
+    t.test('size', (t: test.Test): void => {
+        t.test('returns 1 for a single node', (t: test.Test): void => {
+            const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+
+            t.equal(testTree.size(), 1);
+            t.end();
+        });
+
+        t.test('returns 3 for a tree with two children', (t: test.Test): void => {
+            const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+            testTree.addChild(3);
+            testTree.addChild(7);
+
+            t.equal(testTree.size(), 3);
+            t.end();
+        });
+
+        t.test('handles complex trees with a bunch of children', (t: test.Test): void => {
+            const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
+            testTree.addChild(3);
+            testTree.addChild(4);
+            testTree.addChild(7);
+            testTree.addChild(6);
+            testTree.addChild(2);
+            testTree.addChild(9);
+            testTree.addChild(1);
+            testTree.addChild(10);
+
+            t.equal(testTree.size(), 9);
+            t.end();
+        });
+    });
+
     t.test('numChildren', (t: test.Test): void => {
         const testTree = new BinarySearchTree<number>((a, b) => a - b, 5);
 

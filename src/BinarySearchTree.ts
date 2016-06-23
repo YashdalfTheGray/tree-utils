@@ -74,6 +74,21 @@ export class BinarySearchTree<T> {
         }
     };
 
+    public size(): number {
+        if (!this._leftChild && !this._rightChild) {
+            return 1;
+        }
+        else if (!this._leftChild) {
+            return 1 + this._rightChild.size();
+        }
+        else if (!this._rightChild) {
+            return 1 + this._leftChild.size();
+        }
+        else {
+            return 1 + this._leftChild.size() + this._rightChild.size();
+        }
+    }
+
     public numChildren(): number {
         if (this._leftChild && this._rightChild) {
             return 2;
