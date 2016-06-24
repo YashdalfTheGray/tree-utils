@@ -1,3 +1,4 @@
+import {max} from "lodash";
 import {ITree} from "./Tree";
 import {ChildLocation} from "./BinaryTree";
 
@@ -86,6 +87,21 @@ export class BinarySearchTree<T> {
         }
         else {
             return 1 + this._leftChild.size() + this._rightChild.size();
+        }
+    }
+
+    public height(): number {
+        if (!this._leftChild && !this._rightChild) {
+            return 1;
+        }
+        else if (!this._leftChild) {
+            return 1 + this._rightChild.height();
+        }
+        else if (!this._rightChild) {
+            return 1 + this._leftChild.height();
+        }
+        else {
+            return 1 + max([this._leftChild.height(), this._rightChild.height()]);
         }
     }
 
