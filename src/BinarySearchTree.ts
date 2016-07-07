@@ -136,5 +136,12 @@ export class BinarySearchTree<T> {
         else if (parent[loc]._rightChild) {
             parent[loc] = parent[loc]._rightChild;
         }
+        else if (parent[loc]._leftChild && parent[loc]._rightChild) {
+            parent[loc].setNodeData(this._removeLargestRightLeaf(parent[loc]._leftChild))
+        }
+    }
+
+    private _removeLargestRightLeaf(tree: BinarySearchTree<T>): T {
+        return this.getNodeData();
     }
 }
