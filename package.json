@@ -1,5 +1,5 @@
 {
-  "name": "tree-utils",
+  "name": "trees",
   "version": "1.0.0",
   "description": "a collection of tree utilities written in typescript",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YashdalfTheGray/tree-utils.git"
+    "url": "git+https://github.com/YashdalfTheGray/trees.git"
   },
   "keywords": [
     "tree",
@@ -22,9 +22,9 @@
   "author": "YashdalfTheGray",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/YashdalfTheGray/tree-utils/issues"
+    "url": "https://github.com/YashdalfTheGray/trees/issues"
   },
-  "homepage": "https://github.com/YashdalfTheGray/tree-utils#readme",
+  "homepage": "https://github.com/YashdalfTheGray/trees#readme",
   "files": [
     "dist/*",
     "README.md"

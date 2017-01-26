@@ -1,9 +1,9 @@
-# tree-utils
+# trees
 A collection of tree utilities written in Typescript.
 
 ## Usage
 
-Instructions soon. 
+Instructions soon.
 
 ## Development
 
