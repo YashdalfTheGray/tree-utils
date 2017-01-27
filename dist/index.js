@@ -4,3 +4,4 @@ function __export(m) {
 }
 __export(require("./Tree"));
 __export(require("./BinaryTree"));
+__export(require("./BinarySearchTree"));
