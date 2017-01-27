@@ -1,10 +1,10 @@
 "use strict";
 var lodash_1 = require("lodash");
+var ChildLocation;
 (function (ChildLocation) {
     ChildLocation[ChildLocation["LEFT"] = 0] = "LEFT";
     ChildLocation[ChildLocation["RIGHT"] = 1] = "RIGHT";
-})(exports.ChildLocation || (exports.ChildLocation = {}));
-var ChildLocation = exports.ChildLocation;
+})(ChildLocation = exports.ChildLocation || (exports.ChildLocation = {}));
 var BinaryTree = (function () {
     /**
      * Creates a new BinaryTree instance
