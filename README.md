@@ -9,9 +9,11 @@ Instructions soon.
 
 ### Installation
 
-Running an `npm run setup` will install everything that this project needs. This package relies on the fact that `typescript` and `typings` node modules are installed globally. It is also a good idea to have `gulp-cli` globally installed as well.
+Running an `npm run setup` will install everything that this project needs.
 
-All of this can be done by running `npm install --global typescript typings gulp-cli`.
+This package relies on the fact that `typescript` v2.0.0 or higher is installed globally. It is also a good idea to have `gulp-cli` globally installed as well.
+
+All of this can be done by running `npm install --global typescript gulp-cli`.
 
 ### Building
 
