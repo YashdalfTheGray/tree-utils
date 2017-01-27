@@ -3,7 +3,7 @@ A collection of tree utilities written in Typescript.
 
 ## Usage
 
-Instructions soon.
+Run `npm install trees --save` to bring `tress` into your project. The package contains classes for a general tree, a binary tree and a binary search tree. It also exports the typings for those so that this can be used in a Typescript project. 
 
 ## Development
 
